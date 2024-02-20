@@ -97,7 +97,6 @@ const ValidationForm = () => {
 
   const handleOnVideo = (e: React.FormEvent<HTMLInputElement>) => {
     const fileVideo = e.target.files[0];
-   console.log(fileVideo)
     validateForm(e.target.name, fileVideo);
     if (fileVideo) {
       const videoUrl = URL.createObjectURL(fileVideo);

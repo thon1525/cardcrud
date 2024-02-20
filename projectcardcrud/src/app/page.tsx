@@ -69,7 +69,7 @@ export default function Home({ children }: CreatePops) {
           />
         </>
       )}
-      <addContextModal.Provider value={selectCard} >
+      <addContextModal.Provider value={{selectCard}} >
       <Modal >
         {selectedUser.length > 0 ? (
           <>

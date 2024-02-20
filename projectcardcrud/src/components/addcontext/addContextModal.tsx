@@ -1,5 +1,5 @@
 import React, { createContext } from 'react'
 
- const addContextModal =createContext();
+ const addContextModal =createContext('');
 
 export default addContextModal
