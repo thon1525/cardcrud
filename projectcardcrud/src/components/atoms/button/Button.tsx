@@ -1,73 +1,105 @@
-"use client";
-
-import React, { ReactNode, MouseEvent } from "react";
+import React, { ReactNode } from "react";
 
 interface ButtonProps {
   children: ReactNode;
   className?: string;
-  colorScheme?: "primary" | "secondary" | "danger" | "success";
-  size?: "small" | "medium" | "large";
-  isDisabled?: boolean;
-  onClick?: (event: MouseEvent<HTMLButtonElement>) => void;
+  size?: "xs" | "sm" | "md" | "lg" | "xl";
+  color?:
+    | "neutral"
+    | "primary"
+    | "secondary"
+    | "info"
+    | "success"
+    | "warning"
+    | "error";
+  type?: "button" | "submit" | "reset";
+  rounded?: "none" | "base" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "full";
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
-
 const Button: React.FC<ButtonProps> = ({
   children,
-  className = "",
-  colorScheme = "primary",
-  size = "medium",
-  isDisabled = false,
+  className,
+  size = "md",
+  rounded = "base",
+  color = "neutral",
+  type = "button",
   onClick,
 }) => {
-  const getColorSchemeClass = (scheme: string) => {
-    switch (scheme) {
-      case "primary":
-        return "bg-blue-500 hover:bg-blue-400 text-white";
-      case "secondary":
-        return "bg-gray-500 hover:bg-gray-400 text-white";
-      case "danger":
-        return "bg-red-500 hover:bg-red-400 text-white";
-      case "success":
-        return "bg-green-500 hover:bg-green-400 text-white";
-      default:
-        return "bg-blue-500 hover:bg-blue-400 text-white";
-    }
-  };
-
-  const getSizeClass = (size: string) => {
+  const ButtonSize = (size: string) => {
     switch (size) {
-      case "small":
-        return "text-sm px-2 py-1";
-      case "medium":
-        return "text-md px-4 py-2";
-      case "large":
-        return "text-lg px-6 py-3";
+      case "xs":
+        return "px-3 py-2 text-xs text-center text-gray-100 rounded-md";
+      case "sm":
+        return "px-3 py-2 text-sm text-center text-gray-100 rounded-md";
+      case "md":
+        return "px-5 py-2.5 text-sm text-center text-gray-100 rounded-md";
+      case "lg":
+        return "px-5 py-3 text-base text-center text-gray-100 rounded-md";
+      case "xl":
+        return "px-6 py-3.5 text-base text-center text-gray-100 rounded-md";
       default:
-        return "text-md px-4 py-2";
+        return "px-5 py-2.5 text-sm text-center text-gray-100 rounded-md";
     }
   };
 
-  const colorSchemeClass = getColorSchemeClass(colorScheme);
-  const sizeClass = getSizeClass(size);
-  const disableStyle = isDisabled
-    ? "cursor-not-allowed opacity-50"
-    : "cursor-pointer";
-    const combinedClassName = `fixed bottom-5 right-5 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full shadow-lg transition-all duration-300 ease-in-out`;
+  const ButtonRounded = (rounded: string) => {
+    switch(rounded) {
+      case "base":
+        return "rounded";
+      case "sm":
+        return "rounded-sm";
+      case "md":
+        return "rounded-md";
+      case "lg":
+        return "rounded-lg";
+      case "xl":
+        return "rounded-xl";
+      case "2xl":
+        return "rounded-2xl";
+      case "3xl":
+        return "rounded-3xl";
+      case "full":
+        return "rounded-full";
+      default: 
+        return "rounded-none"
+    }
+  }
 
-  const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
-    if (!isDisabled && onClick) {
-      onClick(event);
+  const ButtonColor = (color: string) => {
+    switch (color) {
+      case "neutral":
+        return "bg-[#232A33]";
+      case "primary":
+        return "bg-[#646EE4]";
+      case "secondary":
+        return "bg-[#EF47BC]";
+      case "info":
+        return "bg-[#00B5FF]";
+      case "success":
+        return "bg-[#00935F]";
+      case "warning":
+        return "bg-[#FFBE00]";
+      case "error":
+        return "bg-[#FF5861]";
+      default:
+        return "bg-blue-500";
     }
   };
 
+
+  const getButtonSize = ButtonSize(size);
+  const getButtonColor = ButtonColor(color);
+  const getButtonRounded = ButtonRounded(rounded);
   return (
-    <button
-      disabled={isDisabled}
-      className={className}
-      onClick={handleClick}
-    >
-      {children}
-    </button>
+    <>
+      <button
+        onClick={onClick}
+        type={type}
+        className={`${getButtonRounded} ${getButtonColor} ${getButtonSize} ${className}`}
+      >
+        {children}
+      </button>
+    </>
   );
 };
 

@@ -1,3 +1,5 @@
-import {Modal} from "./modal/modal";
+import { UpdateForm } from "./UpdateForm";
+import { CardList } from "./Card";
+import { Search } from "./Search";
 
-export { Modal};	
+export { UpdateForm, CardList, Search };
